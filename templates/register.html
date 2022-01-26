@@ -1,0 +1,46 @@
+{% include "header.html" %}
+
+<section id="register" class="login">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Log In</h2>
+            <p>Sign Up to organise</p>
+        </div>
+
+        <div class="row content">
+            <form method="post" action="{{ url_for('register') }}">
+                <div class="row">
+                    {{ form.csrf_token }}
+
+                    <div class="col-lg-12 mt-5 mt-lg-0" style="padding: 0 20%;">
+                        <p style="color:#e9607a;">{% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                            {% for message in messages %}
+                            {{ message }}
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %} </p>
+                        {{ form.name.label }}
+                        {{ form.name(class='form-control') }}
+
+                        {{ form.email.label }}
+                        {{ form.email(class='form-control') }}
+
+                        {{ form.password.label }}
+                        {{ form.password(class='form-control')}}
+                        {{ form.submit(class="btn-get-started")}}
+
+                    </div>
+
+
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+</section><!-- End login Section -->
+
+
+{% include "footer.html" %}

@@ -1,0 +1,65 @@
+{% include "header.html" %}
+
+
+<section id="deck" class="login">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">
+            <h2>{{current_user.name}}'s Deck</h2>
+            <p>Plans and Dones</p>
+        </div>
+
+        <div class="row content" style="margin-bottom: 50px; text-align:center;">
+                <form method="post" action="{{ url_for('show_decks', user_id=current_user.id) }}">
+                    <div class="row">
+                        {{ form.csrf_token }}
+
+                        <div class="col-lg-12 mt-5 mt-lg-0" style="padding: 0 20%;">
+
+                            {{ form.title.label }}
+                            {{ form.title(class='form-control') }}
+                            {{ form.submit(class="btn-get-started")}}
+
+                        </div>
+
+
+                    </div>
+                </form>
+
+            </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card border-secondary mb-3">
+                    <div class="card-header border-transparent"><h5 class="card-title">To Do</h5> <a href="{{url_for('delete_plans', user_id=current_user.id) }}">Clear All</a></div>
+                     <div class="card-body text-dark">
+                        <ul class="card-text deck-text">
+                            {% for plan in plans %}
+                            <li>{{ plan.title }} <a href="{{url_for('done_plan', plan_id=plan.id) }}"><i class="bi bi-check-circle-fill deck-icon"></i></a> <a href="{{url_for('delete_plan', plan_id=plan.id) }}"><i class="bi bi-dash-circle deck-icon-del"></i></a>
+                                <br> <p style="color: #aaaaaa;font-weight:100;font-size: 15px;">{{ plan.date }}</p> </li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card border-secondary mb-3">
+                    <div class="card-header border-transparent"><h5 class="card-title" >Done</h5> <a href="{{url_for('delete_dones', user_id=current_user.id) }}">Clear All</a></div>
+                    <div class="card-body text-dark">
+                        <ul class="card-text deck-text">
+                            {% for done in dones %}
+                            <li>{{ done.title }}<br> <p style="color: #aaaaaa;font-weight:100;font-size: 15px;">{{ done.date }}</p></li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+{% include "footer.html" %}
